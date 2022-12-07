@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="./General/Root.xaml" />
+        <ResourceDictionary Source="./MovieListing/Root.xaml" />
+        <ResourceDictionary Source="./MovieDetails/Root.xaml" />
+        <ResourceDictionary Source="./Favorites/Root.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

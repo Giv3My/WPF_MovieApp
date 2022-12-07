@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+
+    <ItemsPanelTemplate x:Key="ListViewItemsPanel">
+        <WrapPanel />
+    </ItemsPanelTemplate>
+
+    <Style x:Key="MLListViewContainer" TargetType="ListViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border Width="220" Height="360" Padding="5 5 5 0" CornerRadius="10" Background="#4A507B">
+                        <StackPanel Orientation="Vertical">
+                            <Rectangle Width="210" Height="300" VerticalAlignment="Top" RadiusX="9" RadiusY="9">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding Poster_Path}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+
+                            <Label
+                                Margin="0 5 0 0"
+                                FontFamily="{StaticResource Livvic}"
+                                FontWeight="SemiBold"
+                                FontSize="14"
+                                FontStyle="Normal"
+                                Foreground="#A5ACBD"
+                                Content="{Binding Title}" />
+
+                            <StackPanel Margin="5 0 0 0" Orientation="Horizontal">
+                                <Canvas>
+                                    <Path Fill="#e8ba3c" Stroke="Transparent" StrokeThickness="0" Data="M 5,0 L 4,4 L 0,4 L 3,7 L 2,11 L 5,9 L 6, 9 L 9,11 L 8,7 L 11,4 L 7,4 L 6,0" />
+                                </Canvas>
+                                <Label
+                                    Margin="10 -9 0 0"
+                                    FontWeight="Bold"
+                                    FontSize="13"
+                                    FontStyle="Normal"
+                                    Foreground="#e8ba3c"
+                                    Content="{Binding Vote_Average}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0 0 10 10" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="0.8" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
