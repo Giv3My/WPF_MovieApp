@@ -1,0 +1,361 @@
+﻿<UserControl x:Class="MovieApp.MVVM.View.MovieDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MovieApp.MVVM.View"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="1050">
+
+    <Border Padding="10" Margin="0 25 0 0" CornerRadius="20" Background="#0e1a2e">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="MinHeight" Value="740" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+
+        <Grid>
+            <fa:ImageAwesome
+                Width="72"
+                Height="72"
+                Icon="CircleOutlineNotch"
+                Spin="True"
+                Foreground="#414884">
+                <fa:ImageAwesome.Style>
+                    <Style TargetType="fa:ImageAwesome">
+                        <Setter Property="Visibility" Value="Collapsed" />
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoading}" Value="true">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </fa:ImageAwesome.Style>
+            </fa:ImageAwesome>
+
+            <Border
+                DockPanel.Dock="Top"
+                MinHeight="712"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed" />
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsError}" Value="true">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <StackPanel
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+                    <Label
+                        HorizontalAlignment="Center"
+                        FontFamily="{StaticResource Inter}"
+                        FontSize="42"
+                        FontWeight="SemiBold"
+                        Foreground="#fff"
+                        Content="Page Not Found"/>
+
+                    <Button
+                        Margin="0 10 0 0"
+                        Style="{StaticResource GoBackBtn}"
+                        Content="← GO BACK"
+                        Command="{Binding GoBack}" />
+                </StackPanel>
+            </Border>
+
+            <ScrollViewer>
+                <ScrollViewer.Style>
+                    <Style TargetType="ScrollViewer">
+                        <Style.Resources>
+                            <Style TargetType="ScrollBar">
+                                <Style.Triggers>
+                                    <Trigger Property="Orientation" Value="Vertical">
+                                        <Setter Property="Margin" Value="10 0 0 0" />
+                                        <Setter Property="Width" Value="13" />
+                                        <Setter Property="Template" Value="{StaticResource ScrollBar}" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Style.Resources>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoading}" Value="true">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsError}" Value="true">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ScrollViewer.Style>
+
+                <StackPanel>
+                    <Border CornerRadius="20">
+                        <Border.Background>
+                            <LinearGradientBrush>
+                                <GradientStop Color="#000" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border Padding="30" CornerRadius="20">
+                            <Border.Background>
+                                <ImageBrush Opacity="0.3" ImageSource="{Binding MovieDetails.Backdrop_Path}" Stretch="None" />
+                            </Border.Background>
+
+                            <StackPanel Orientation="Vertical">
+                                <Border
+                                    Margin="0 0 0 10"
+                                    Width="50"
+                                    Height="50"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="50"
+                                    Background="Transparent">
+                                    <Border.InputBindings>
+                                        <MouseBinding MouseAction="LeftClick" Command="{Binding GoBack}" />
+                                    </Border.InputBindings>
+
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Cursor" Value="Hand" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <Label
+                                        Height="64"
+                                        Padding="0"
+                                        FontSize="50"
+                                        FontWeight="Regular"
+                                        Foreground="#fff"
+                                        Content="←"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom" />
+                                </Border>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="250" Height="370" VerticalAlignment="Top" RadiusX="9" RadiusY="9">
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="{Binding MovieDetails.Poster_Path}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+
+                                    <StackPanel Margin="30 0 0 0" MaxWidth="800">
+                                        <Label
+                                            Margin="0 0 0 20"
+                                            Padding="0"
+                                            FontSize="42"
+                                            FontFamily="{StaticResource Inter}"
+                                            FontWeight="ExtraBold"
+                                            Foreground="#fff"
+                                            Content="{Binding MovieDetails.Original_Title}" />
+
+                                        <TextBlock
+                                            FontSize="20"
+                                            FontFamily="{StaticResource Inter}"
+                                            FontWeight="SemiBold"
+                                            Foreground="#fff"
+                                            TextWrapping="Wrap"
+                                            Text="{Binding MovieDetails.Overview}" />
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Margin="0 25 0 0" Orientation="Horizontal">
+                                    <Border
+                                        Margin="0 0 40 0"
+                                        Width="160"
+                                        Height="50"
+                                        CornerRadius="15"
+                                        Background="#ea2845">
+                                        <Border.InputBindings>
+                                            <MouseBinding
+                                                MouseAction="LeftClick"
+                                                Command="{Binding OpenTrailer}"
+                                                CommandParameter="{Binding MovieDetails.TrailerLink}" />
+                                        </Border.InputBindings>
+
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding MovieDetails.TrailerLink}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Cursor" Value="Hand" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <Image Width="20" Height="20" Source="/Resources/Images/trailer.png" />
+                                            <Label
+                                                Margin="10 0 0 0"
+                                                Padding="0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource Inter}"
+                                                FontWeight="Bold"
+                                                FontSize="14"
+                                                Foreground="#fff"
+                                                Content="Watch trailer"/>
+                                        </StackPanel>
+
+                                    </Border>
+
+                                    <Button
+                                        Width="50"
+                                        Height="50"
+                                        BorderThickness="2"
+                                        BorderBrush="#D7443E"
+                                        Command="{Binding ToggleFavorites}"
+                                        CommandParameter="{Binding MovieDetails.Id}">
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource MaterialDesignFloatingActionButton}" TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsInFavorites}" Value="True">
+                                                        <Setter Property="Background" Value="#D7443E" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+
+                                                <Setter Property="Background" Value="Transparent" />
+                                            </Style>
+                                        </Button.Style>
+
+                                        <Image
+                                            Width="30"
+                                            Height="30"
+                                            Margin="0 2 0 0">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsInFavorites}" Value="True">
+                                                            <Setter Property="Source" Value="/Resources/Images/heartFilled.png" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+
+                                                    <Setter Property="Source" Value="/Resources/Images/heartOutlined.png" />
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Border>
+
+                    <Border Padding="20 0" Margin="0 30 0 0">
+                        <StackPanel Orientation="Vertical">
+                            <Label
+                                Margin="0 0 0 10"
+                                FontSize="32"
+                                FontFamily="{StaticResource Inter}"
+                                FontWeight="Bold"
+                                Foreground="#dddad6"
+                                Content="About the movie" />
+                            <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource MovieInfoItemBold}"
+                                    Content="Slogan:" />
+                                <Label
+                                    Style="{StaticResource MovieInfoItem}"
+                                    Content="{Binding MovieDetails.Tagline, TargetNullValue='---'}" />
+                            </StackPanel>
+                            <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource MovieInfoItemBold}"
+                                    Content="Year:" />
+                                <Label
+                                    Style="{StaticResource MovieInfoItem}"
+                                    Content="{Binding MovieDetails.Year, TargetNullValue='---'}" />
+                            </StackPanel>
+                            <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource MovieInfoItemBold}"
+                                    Content="World premiere:" />
+                                <Label
+                                    Style="{StaticResource MovieInfoItem}"
+                                    Content="{Binding MovieDetails.Release_Date, TargetNullValue='---'}" />
+                            </StackPanel>
+                            <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource MovieInfoItemBold}"
+                                    Content="Country:" />
+                                <Label
+                                    Style="{StaticResource MovieInfoItem}"
+                                    Content="{Binding MovieDetails.Country, TargetNullValue='---'}" />
+                            </StackPanel>
+                            <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource MovieInfoItemBold}"
+                                    Content="Genre:" />
+                                <Label
+                                    Style="{StaticResource MovieInfoItem}"
+                                    Content="{Binding MovieDetails.GenreStr, TargetNullValue='---'}" />
+                            </StackPanel>
+                            <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                                <Label
+                                    Style="{StaticResource MovieInfoItemBold}"
+                                    Content="Duration:" />
+                                <Label
+                                    Style="{StaticResource MovieInfoItem}"
+                                    Content="{Binding MovieDetails.Runtime, TargetNullValue='---'}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="0 30 0 0" Padding="20" CornerRadius="20" Background="#080808">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MovieDetails.Actors}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <StackPanel Orientation="Vertical">
+                            <Label
+                                HorizontalAlignment="Center"
+                                FontSize="32"
+                                FontWeight="Bold"
+                                FontFamily="{StaticResource Inter}"
+                                Foreground="#dddad6"
+                                Content="Actors" />
+
+                            <ListView
+                                Margin="0 15 0 0"
+                                HorizontalAlignment="Center"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding MovieDetails.Actors, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsPanel="{StaticResource ListViewItemsPanel}"
+                                ItemContainerStyle="{StaticResource MDListViewItem}" />
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+    </Border>
+
+</UserControl>
